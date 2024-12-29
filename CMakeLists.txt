@@ -10,5 +10,3 @@ target_link_libraries(${target} ${CURSES_LIBRARIES})
 
 include(compiler/warnings-c)
 compiler_warnings_install(${target})
-
-add_subdirectory(test)
