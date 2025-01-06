@@ -20,21 +20,39 @@ struct board {
 	struct cell** grid;
 };
 
-#define board_at(b, p)   ((b)->grid[(p).row][(p).col])
-#define board_max_row(b) (getmaxy(b->w) - 1)
-#define board_max_col(b) (getmaxx(b->w) - 1)
-#define board_max(b)     vec2_create(board_max_row(b), board_max_col(b))
-#define board_is(b, p)   (board_at(b, p) != CELL_EMPTY)
-
-#define board_in(b, p)                                                         \
-	(in_range(p.row, 0, board_max_row(b))                                      \
-	 && in_range(p.col, 0, board_max_col(b)))
-
 int board_init(struct board* const b, WINDOW* const w);
 void board_destroy(struct board* const b);
 
 void board_clear(struct board* const b);
 int board_render(const struct board* const b);
+
+#define board_at(b, p) ((b)->grid[(p).row][(p).col])
+
+static inline int board_max_row(const struct board* const b)
+{
+	return getmaxy(b->w) - 1;
+}
+
+static inline int board_max_col(const struct board* const b)
+{
+	return getmaxx(b->w) - 1;
+}
+
+static inline struct vec2 board_max(const struct board* const b)
+{
+	return vec2_create(board_max_row(b), board_max_col(b));
+}
+
+static inline bool board_in(const struct board* const b, struct vec2 p)
+{
+	return (in_range(p.row, 0, board_max_row(b))
+			&& in_range(p.col, 0, board_max_col(b)));
+}
+
+static inline bool board_is(const struct board* const b, struct vec2 p)
+{
+	return cell_neq(board_at(b, p), CELL_EMPTY);
+}
 
 #endif /* BOARD_H_INCLUDED_ */
 

@@ -46,6 +46,16 @@ struct cell {
 
 #define CELL_EMPTY cell_create(EMPTY, color_none)
 
+static inline bool cell_eq(const struct cell lhs, const struct cell rhs)
+{
+	return (lhs.c == rhs.c) && (lhs.ch == rhs.ch);
+}
+
+static inline bool cell_neq(const struct cell lhs, const struct cell rhs)
+{
+	return (lhs.c != rhs.c) && (lhs.ch != rhs.ch);
+}
+
 enum dir {
 	dir_down,
 	dir_up,

@@ -210,20 +210,20 @@ int ncge_run(struct ncge* const ctx)
 	i32 delay = DELAY_INIT;
 
 	while (true) {
-		int err = ctx->ops->state_ops[ctx->state](ctx);
-		if (err < 0)
-			return err;
-		if (err == NCGE_EXIT)
-			break;
-
 		delay -= (i32)ctx->delay_step;
 		if (delay < 0) {
-			err = ctx->ops->on_frame(ctx);
+			int err = ctx->ops->on_frame(ctx);
 			if (err < 0)
 				return err;
 
 			delay = INT16_MAX;
 		}
+
+		int err = ctx->ops->state_ops[ctx->state](ctx);
+		if (err < 0)
+			return err;
+		if (err == NCGE_EXIT)
+			break;
 
 		err = update(ctx);
 		if (err < 0)
