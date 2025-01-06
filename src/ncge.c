@@ -27,11 +27,6 @@ static const u8 colors[] = {
 	COLOR_GREEN, COLOR_RED,    COLOR_WHITE, COLOR_BLACK,
 };
 
-struct key_cb {
-	int (*cb)(struct ncge* const ctx);
-	int key;
-};
-
 static inline void win_dtor(void* w)
 {
 	delwin(w);
