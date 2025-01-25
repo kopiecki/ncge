@@ -31,18 +31,23 @@ enum state {
 	num_states,
 };
 
+struct ncge;
+
+struct ncge_ops {
+	int (*on_frame)(struct ncge* const ctx);
+	int (*state_ops[num_states])(struct ncge* const ctx);
+};
+
 struct ncge {
 	enum state state;
+	const struct ncge_ops* ops;
 	u32 delay_step;
 	struct ll wins;
 	struct ll boards;
-	struct ncge_ops {
-		int (*on_frame)(struct ncge* const ctx);
-		int (*state_ops[num_states])(struct ncge* const ctx);
-	} * ops;
 };
 
-int ncge_init(struct ncge* const ctx, struct ncge_ops* const ops, u32 delay_step);
+int ncge_init(
+	struct ncge* const ctx, const struct ncge_ops* const ops, u32 delay_step);
 void ncge_destroy(struct ncge* const ctx);
 
 int ncge_create_win(struct ncge* const ctx, const struct win_cfg* const cfg);

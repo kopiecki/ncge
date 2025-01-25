@@ -111,7 +111,7 @@ static int update(struct ncge* const ctx)
 	return 0;
 }
 
-int ncge_init(struct ncge* const ctx, struct ncge_ops* const ops, u32 delay_step)
+int ncge_init(struct ncge* const ctx, const struct ncge_ops* const ops, u32 delay_step)
 {
 	assert(ctx != NULL);
 	assert(ops != NULL);
