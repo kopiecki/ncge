@@ -1,8 +1,11 @@
-/*
+/**
  * @file   ncge.c
+ * @brief  ncurses game backend
+ * @author Daniel Kopiecki <daniel.kopiecki@protonmail.com>
+ * @date   2025-01-26
  *
- * SPDX-FileCopyrightText: 2024 Daniel Kopiecki
- * SPDX-License-Identifier: MIT
+ * @copyright Copyright (c) 2025 Daniel Kopiecki
+ * @par       License: MIT
  */
 
 #include "ncge/ncge.h"
@@ -123,7 +126,7 @@ int ncge_init(struct ncge* const ctx, const struct ncge_ops* const ops, u32 dela
 	ll_init(&ctx->wins, sizeof(WINDOW*), win_dtor);
 	ll_init(&ctx->boards, sizeof(struct board), board_dtor);
 
-	ctx->state      = state_init;
+	ctx->state      = STATE_INIT;
 	ctx->ops        = ops;
 	ctx->delay_step = (delay_step == 0) ? DELAY_STEP : delay_step;
 
@@ -137,7 +140,7 @@ void ncge_destroy(struct ncge* const ctx)
 	ll_destroy(&ctx->wins);
 	ll_destroy(&ctx->boards);
 
-	ctx->state = state_exit;
+	ctx->state = STATE_EXIT;
 }
 
 int ncge_create_win(struct ncge* const ctx, const struct win_cfg* const cfg)
