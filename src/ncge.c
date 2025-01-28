@@ -228,8 +228,6 @@ int ncge_run(struct ncge* const ctx)
 			return err;
 	}
 
-	ncge_destroy(ctx);
-
 	return 0;
 }
 
