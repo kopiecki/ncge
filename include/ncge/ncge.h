@@ -24,6 +24,11 @@
 #define NCGE_EXIT 0xC0FFEE
 
 /**
+ * @brief ESC key code
+ */
+#define KEY_ESC 27
+
+/**
  * @brief Window configuration
  */
 struct win_cfg {
